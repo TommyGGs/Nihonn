@@ -15,6 +15,8 @@ public class SettingUpGame : MonoBehaviour
     public bool gameOver;
     public bool youWin;
 
+    public static string result;
+
     public float targetY = 0;
     public float speed = 0.1f;
     void Start()
@@ -28,6 +30,7 @@ public class SettingUpGame : MonoBehaviour
     {
         if (gameOver)
         {
+            result = youWin? "左の勝ち": "右の勝ち";
             gameOver = false;
             SceneManager.LoadScene("ResultPage");
         }
@@ -53,7 +56,7 @@ public class SettingUpGame : MonoBehaviour
             secondTurn = true;
         }
         isMyTurn = !isMyTurn;
-        Debug.Log("changing turn");
+        Debug.Log("isMyTurn: " + isMyTurn);
         SeeIfMyTurn();
         StartCoroutine(ChopTimer("food"));
         ChopsticksDestroy();

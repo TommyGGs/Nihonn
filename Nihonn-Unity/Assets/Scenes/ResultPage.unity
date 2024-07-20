@@ -657,7 +657,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resultText: {fileID: 1275932086}
-  settingUpGame: {fileID: 1275932089}
 --- !u!114 &1275932089
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -673,8 +672,6 @@ MonoBehaviour:
   isMyTurn: 0
   chopsticksOpen: 0
   gameOver: 0
-  youWin: 0
-  result: 
   targetY: 0
   speed: 0.1
 --- !u!1 &1508081003
@@ -688,6 +685,7 @@ GameObject:
   - component: {fileID: 1508081006}
   - component: {fileID: 1508081005}
   - component: {fileID: 1508081004}
+  - component: {fileID: 1508081007}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -769,6 +767,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1508081007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1508081003}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9fdf557dd27c4e01876d4c354ed0a80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isMyTurn: 0
+  chopsticksOpen: 0
+  gameOver: 0
+  targetY: 0
+  speed: 0.1
 --- !u!1 &1660958233
 GameObject:
   m_ObjectHideFlags: 0
@@ -1172,7 +1187,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resultText: {fileID: 0}
-  settingUpGame: {fileID: 0}
 --- !u!1 &1995855039
 GameObject:
   m_ObjectHideFlags: 0
