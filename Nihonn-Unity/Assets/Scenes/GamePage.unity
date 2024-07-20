@@ -368,7 +368,7 @@ Transform:
   m_GameObject: {fileID: 1116202781}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.61, y: -3.25, z: -1}
+  m_LocalPosition: {x: 4.61, y: -3.25, z: -2}
   m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -481,6 +481,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isMyTurn: 0
   chopsticksOpen: 0
+  gameOver: 0
+  youWin: 0
 --- !u!1001 &1706522103
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -564,7 +566,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8014048410606060644, guid: 28b2ae4eb796e465c9a03b453e2f5bde, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 8014048410606060644, guid: 28b2ae4eb796e465c9a03b453e2f5bde, type: 3}
       propertyPath: m_LocalRotation.w
