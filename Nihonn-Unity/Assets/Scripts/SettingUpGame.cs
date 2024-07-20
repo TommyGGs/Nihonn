@@ -11,8 +11,8 @@ public class SettingUpGame : MonoBehaviour
     private string yesOrNo;
     public bool chopsticksOpen = false; 
     private bool secondTurn = false;
-
-    // public bool allowChopsticksGenerate = false; 
+    public bool gameOver;
+    public bool youWin;
     void Start()
     {
         randomTurnFunc();
@@ -22,6 +22,11 @@ public class SettingUpGame : MonoBehaviour
 
     void Update()
     {
+        if (gameOver)
+        {
+            Debug.Log(youWin? "You won!": "You lost");
+            gameOver = false;
+        }
         if (chopsticksOpen)
         {
             Debug.Log("Chopstick Open" + chopsticksOpen);
