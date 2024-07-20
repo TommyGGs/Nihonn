@@ -26,6 +26,5 @@ func Server() {
 		ms.HandleConn(conn)
 	})
 
-	log.Println("Server started on localhost:8080")
 	http.ListenAndServe(":8080", nil)
 }
