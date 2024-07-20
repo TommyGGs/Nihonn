@@ -42,12 +42,12 @@ public class StickToObject : MonoBehaviour
             fixedJoint.breakForce = 70f;
             fixedJoint.breakTorque = 50f;
 
-            SpringJoint2D springJoint = gameObject.AddComponent<SpringJoint2D>();
+            // SpringJoint2D springJoint = gameObject.AddComponent<SpringJoint2D>();
             // springJoint.connectedBody = other.rigidbody;
 
             // springJoint.dampingRatio = 0.5f;
             // springJoint.frequency = 1f;
-            springJoint.breakForce = 80f;
+            // springJoint.breakForce = 10f;
             // springJoint.breakTorque = 50f;
         }
     }

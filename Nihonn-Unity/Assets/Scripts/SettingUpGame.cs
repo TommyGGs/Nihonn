@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SettingUpGame : MonoBehaviour
 {
@@ -27,8 +28,8 @@ public class SettingUpGame : MonoBehaviour
     {
         if (gameOver)
         {
-            Debug.Log(youWin? "You won!": "You lost");
             gameOver = false;
+            SceneManager.LoadScene("ResultPage");
         }
         if (chopsticksOpen)
         {
