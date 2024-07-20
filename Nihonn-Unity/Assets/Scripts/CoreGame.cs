@@ -46,14 +46,22 @@ public class CoreGame : MonoBehaviour
         chopstick2.transform.position += movement;
     }
 
-    private void ResetChopsticksRotation()
+    private void ChangeChopsticksRotation()
     {
-        chopstick1.transform.rotation = Quaternion.Euler(Vector3.forward * -6.5f);
-        chopstick2.transform.rotation = Quaternion.Euler(Vector3.forward * 9.67f);
+        bool isMyTurn = GameObject.Find("Main Camera").GetComponent<SettingUpGame>().isMyTurn;
+        float rotateFloat = 0f;
+        if (!isMyTurn)
+        {
+            rotateFloat = 180f;
+        } 
+        chopstick1.transform.rotation = Quaternion.Euler(0f, rotateFloat, -6.5f);
+        chopstick2.transform.rotation = Quaternion.Euler(0f, rotateFloat, 9.67f);
+
     }
 
     private void HandleRotation()
     {
+
         if (Input.GetMouseButtonDown(0))
         {
             ChopsticksAppear();
@@ -69,7 +77,7 @@ public class CoreGame : MonoBehaviour
         {
             GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
             isDropped = true;
-            ResetChopsticksRotation();
+            ChangeChopsticksRotation();
         }
     }
 
