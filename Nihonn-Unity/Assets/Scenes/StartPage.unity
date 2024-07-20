@@ -1009,8 +1009,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u306F\u3058\u3081\u308B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 24aa57956f80b4f93a972721b7781097, type: 2}
-  m_sharedMaterial: {fileID: -553034847312570688, guid: 24aa57956f80b4f93a972721b7781097, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2584f2abbcc594b2f986572e59864f5b, type: 2}
+  m_sharedMaterial: {fileID: 4067005839333374493, guid: 2584f2abbcc594b2f986572e59864f5b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
