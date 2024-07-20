@@ -479,6 +479,65 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9fdf557dd27c4e01876d4c354ed0a80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isMyTurn: 0
+  chopsticksOpen: 0
+--- !u!1001 &1706522103
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2884803760418393524, guid: ce175d37785f64ef99df314c2632dcc7, type: 3}
+      propertyPath: m_Name
+      value: sakazuki_front
+      objectReference: {fileID: 0}
+    - target: {fileID: 3298748265587292942, guid: ce175d37785f64ef99df314c2632dcc7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 3298748265587292942, guid: ce175d37785f64ef99df314c2632dcc7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 3298748265587292942, guid: ce175d37785f64ef99df314c2632dcc7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3298748265587292942, guid: ce175d37785f64ef99df314c2632dcc7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3298748265587292942, guid: ce175d37785f64ef99df314c2632dcc7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3298748265587292942, guid: ce175d37785f64ef99df314c2632dcc7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3298748265587292942, guid: ce175d37785f64ef99df314c2632dcc7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3298748265587292942, guid: ce175d37785f64ef99df314c2632dcc7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3298748265587292942, guid: ce175d37785f64ef99df314c2632dcc7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3298748265587292942, guid: ce175d37785f64ef99df314c2632dcc7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ce175d37785f64ef99df314c2632dcc7, type: 3}
 --- !u!1001 &5533405594607498463
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -490,6 +549,10 @@ PrefabInstance:
     - target: {fileID: 2695395859922524543, guid: 28b2ae4eb796e465c9a03b453e2f5bde, type: 3}
       propertyPath: m_Name
       value: sakazuki
+      objectReference: {fileID: 0}
+    - target: {fileID: 2695395859922524543, guid: 28b2ae4eb796e465c9a03b453e2f5bde, type: 3}
+      propertyPath: m_TagString
+      value: Plate
       objectReference: {fileID: 0}
     - target: {fileID: 8014048410606060644, guid: 28b2ae4eb796e465c9a03b453e2f5bde, type: 3}
       propertyPath: m_LocalPosition.x
@@ -544,4 +607,5 @@ SceneRoots:
   - {fileID: 800925850}
   - {fileID: 227493332}
   - {fileID: 5533405594607498463}
+  - {fileID: 1706522103}
   - {fileID: 1116202783}
