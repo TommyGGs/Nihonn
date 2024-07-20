@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3252577540700226834}
   - component: {fileID: 3003368876647318409}
   - component: {fileID: 1748187657452152870}
-  - component: {fileID: -224877701547767318}
   m_Layer: 0
   m_Name: natto
   m_TagString: natto
@@ -334,16 +333,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &-224877701547767318
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3458326869139654676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f071e50667224304a6ca349195ad209, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5

@@ -160,9 +160,17 @@ public class SettingUpGame : MonoBehaviour
             Quaternion startRotation = Quaternion.Euler(0, 0, 0);
             objectPrefab.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
             objectPrefab.GetComponent<SpriteRenderer>().sortingOrder = 2;
-            objectPrefab.AddComponent<CoreGame>();
-            objectPrefab.AddComponent<StickToObject>();
-            Instantiate(objectPrefab, startPosition, startRotation); 
+            GameObject instantiatedObject = Instantiate(objectPrefab, startPosition, startRotation);
+            
+            if (instantiatedObject.GetComponent<CoreGame>() == null)
+            {
+                instantiatedObject.AddComponent<CoreGame>();
+            }
+
+            if ( instantiatedObject.GetComponent<StickToObject>() == null)
+            {
+                instantiatedObject.AddComponent<StickToObject>();
+            }
         }
     }
 
