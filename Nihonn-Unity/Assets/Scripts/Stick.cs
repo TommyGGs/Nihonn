@@ -6,6 +6,7 @@ public class StickToObject : MonoBehaviour
 {
     void OnCollisionEnter2D(Collision2D other)
     {
+        Debug.Log("touch");
 		if(other.gameObject.CompareTag("omochi")){
 			Debug.Log("touch");
             FixedJoint2D fixedJoint = gameObject.AddComponent<FixedJoint2D>();
