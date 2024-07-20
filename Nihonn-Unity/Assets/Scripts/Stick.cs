@@ -12,7 +12,7 @@ public class StickToObject : MonoBehaviour
             FixedJoint2D fixedJoint = gameObject.AddComponent<FixedJoint2D>();
             fixedJoint.connectedBody = other.rigidbody;
             fixedJoint.breakForce = 80f;//大きくするほど離れない
-            fixedJoint.breakTorque = 50f;//同上
+            fixedJoint.breakTorque = 80f;//同上
 
             // SpringJoint2D springJoint = gameObject.AddComponent<SpringJoint2D>();
             // springJoint.connectedBody = other.rigidbody;
@@ -25,7 +25,7 @@ public class StickToObject : MonoBehaviour
             Debug.Log("touch");
             FixedJoint2D fixedJoint = gameObject.AddComponent<FixedJoint2D>();
             fixedJoint.connectedBody = other.rigidbody;
-            fixedJoint.breakForce = 80f;//大きくするほど離れない
+            fixedJoint.breakForce = 30f;//大きくするほど離れない
             fixedJoint.breakTorque = 50f;//同上
 
             // SpringJoint2D springJoint = gameObject.AddComponent<SpringJoint2D>();
@@ -39,15 +39,15 @@ public class StickToObject : MonoBehaviour
             Debug.Log("touch");
             FixedJoint2D fixedJoint = gameObject.AddComponent<FixedJoint2D>();
             fixedJoint.connectedBody = other.rigidbody;
-            fixedJoint.breakForce = 80f;//大きくするほど離れない
-            fixedJoint.breakTorque = 50f;//同上
+            fixedJoint.breakForce = 70f;
+            fixedJoint.breakTorque = 50f;
 
-            // SpringJoint2D springJoint = gameObject.AddComponent<SpringJoint2D>();
+            SpringJoint2D springJoint = gameObject.AddComponent<SpringJoint2D>();
             // springJoint.connectedBody = other.rigidbody;
 
             // springJoint.dampingRatio = 0.5f;
             // springJoint.frequency = 1f;
-            // springJoint.breakForce = 100f;
+            springJoint.breakForce = 80f;
             // springJoint.breakTorque = 50f;
         }
     }

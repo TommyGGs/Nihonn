@@ -13,6 +13,9 @@ public class SettingUpGame : MonoBehaviour
     private bool secondTurn = false;
     public bool gameOver;
     public bool youWin;
+
+    public float targetY = 0;
+    public float speed = 0.1f;
     void Start()
     {
         randomTurnFunc();
@@ -34,12 +37,17 @@ public class SettingUpGame : MonoBehaviour
             Debug.Log("Chopstick closed" + chopsticksOpen);
             ChangeTurn();
         }
+        if (Camera.main != null)
+      {
+        Vector3 targetPosition = new Vector3(Camera.main.transform.position.x, targetY, Camera.main.transform.position.z);
+        Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, targetPosition, speed * Time.deltaTime);
+      }
     }
 
 
     private void ChangeTurn()
     {
-        if (secondTurn == false) 
+        if (secondTurn == false)
         {
             secondTurn = true;
         }
@@ -48,6 +56,7 @@ public class SettingUpGame : MonoBehaviour
         SeeIfMyTurn();
         StartCoroutine(ChopTimer("food"));
         ChopsticksDestroy();
+        targetY = targetY + 0.2f;
     }
 
     private void ChopsticksDestroy()
@@ -122,6 +131,8 @@ public class SettingUpGame : MonoBehaviour
         Vector3 chopPos2 = chopstick2.transform.position;
         chopPos1.x = (isMyTurn || secondTurn) ? -chopPos1.x : chopPos1.x;
         chopPos2.x = (isMyTurn || secondTurn) ? -chopPos2.x : chopPos2.x;
+        chopPos1.y = targetY + 3.78f;
+        chopPos2.y = targetY + 3.28f;
 
         chopstick1.transform.position = chopPos1;
         chopstick2.transform.position = chopPos2;
@@ -156,7 +167,7 @@ public class SettingUpGame : MonoBehaviour
         objectPrefab = Resources.Load<GameObject>(randomObject);
         if (objectPrefab != null)
         {
-            Vector3 startPosition = new Vector3(0, 3, -3);
+            Vector3 startPosition = new Vector3(0, targetY+3, -3);
             Quaternion startRotation = Quaternion.Euler(0, 0, 0);
             objectPrefab.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
             objectPrefab.GetComponent<SpriteRenderer>().sortingOrder = 2;
