@@ -6,13 +6,16 @@ public class CoreGame : MonoBehaviour
     private GameObject chopstick2;
     private bool isDropped = false;
     [SerializeField] private int speed = 5;
+    private  SettingUpGame settingScript;
 
     private int mouseClicks = 0;
+    private int spaceKeyClicked = 0;
 
     private void Start()
     {
         chopstick1 = GameObject.Find("Chopstick1(Clone)");
         chopstick2 = GameObject.Find("Chopstick2(Clone)");
+        settingScript = GameObject.Find("Main Camera").GetComponent<SettingUpGame>();
     }
 
     private void Update()
@@ -21,7 +24,6 @@ public class CoreGame : MonoBehaviour
         HandleRotation();
         CheckGameOver();
     }
-
 
     private void HandleMovement()
     {
@@ -34,6 +36,8 @@ public class CoreGame : MonoBehaviour
 
     private void ChopsticksAppear()
     {
+        chopstick1 = GameObject.Find("Chopstick1(Clone)");
+        chopstick2 = GameObject.Find("Chopstick2(Clone)");
         chopstick1.GetComponent<SpriteRenderer>().enabled = true;
         chopstick2.GetComponent<SpriteRenderer>().enabled = true;
     }
@@ -48,14 +52,16 @@ public class CoreGame : MonoBehaviour
 
     private void ChangeChopsticksRotation()
     {
-        bool isMyTurn = GameObject.Find("Main Camera").GetComponent<SettingUpGame>().isMyTurn;
-        float rotateFloat = 0f;
-        if (!isMyTurn)
-        {
-            rotateFloat = 180f;
-        } 
-        chopstick1.transform.rotation = Quaternion.Euler(0f, rotateFloat, -6.5f);
-        chopstick2.transform.rotation = Quaternion.Euler(0f, rotateFloat, 9.67f);
+        Debug.Log("telling chopsticks opened");
+        //changed here
+        if (!settingScript.chopsticksOpen) {
+            settingScript.chopsticksOpen = true;
+        } else {
+            settingScript.chopsticksOpen = false;
+        }
+        bool isMyTurn = settingScript.isMyTurn;
+        chopstick1.transform.rotation = Quaternion.Euler(0f, isMyTurn ? 180f: 0f, -6.5f);
+        chopstick2.transform.rotation = Quaternion.Euler(0f, isMyTurn ? 180f: 0f, 9.67f);
 
     }
 
@@ -73,11 +79,17 @@ public class CoreGame : MonoBehaviour
             Spin();
         }
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.Space) && spaceKeyClicked == 0)
         {
+            spaceKeyClicked ++;
             GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
             isDropped = true;
+            Debug.Log("yes space key");
             ChangeChopsticksRotation();
+            
+            // also changed here
+            // settingScript.chopsticksOpen = false;
+
         }
     }
 
@@ -94,6 +106,11 @@ public class CoreGame : MonoBehaviour
         {
             Debug.Log("gameOver!!");
             Destroy(gameObject);
+            // because switches turn when chopsticks opens 
+            // so when its dropped and its your fault, it is is the other person's "isMyTurn"
+            // so when objects fall out during isMyTurn == true, its your win
+            settingScript.gameOver = true;
+            settingScript.youWin = settingScript.isMyTurn ? true: false;
         }
     }
 }
