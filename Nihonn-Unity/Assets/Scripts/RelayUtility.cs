@@ -9,19 +9,39 @@ using TMPro;
 
 public class RelayUtility : MonoBehaviour
 {
-    [SerializeField] TMP_InputField joinCodeInput;
-    private async void Start()
-    {
-        await UnityServices.InitializeAsync();
+    private string joinStr = "";
 
-        AuthenticationService.Instance.SignedIn += () =>
+    public async void StartGame()
+    {
+        if (joinStr == "")
         {
-            Debug.Log("Signed In " + AuthenticationService.Instance.PlayerId);
-        };
-        await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            await UnityServices.InitializeAsync();
+            AuthenticationService.Instance.SignedIn += () =>
+            {
+                Debug.Log("Signed In " + AuthenticationService.Instance.PlayerId);
+            };
+            await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            CreateRelayHost();
+        }
+        else
+        {
+            JoinRelay(joinStr);
+        }
     }
 
-    public async void CreateRelayButton()
+    // [SerializeField] TMP_InputField joinCodeInput;
+    // private async void Start()
+    // {
+    //     await UnityServices.InitializeAsync();
+
+    //     AuthenticationService.Instance.SignedIn += () =>
+    //     {
+    //         Debug.Log("Signed In " + AuthenticationService.Instance.PlayerId);
+    //     };
+    //     await AuthenticationService.Instance.SignInAnonymouslyAsync();
+    // }
+
+    public async void CreateRelayHost()
     {
         try
         {
@@ -38,6 +58,8 @@ public class RelayUtility : MonoBehaviour
 
             Debug.Log(joinCode);
             NetworkManager.Singleton.StartHost();
+
+            joinStr = joinCode;
         }
         catch (RelayServiceException e)
         {
@@ -45,10 +67,10 @@ public class RelayUtility : MonoBehaviour
         }
     }
 
-    public void JoinRelayButton()
-    {
-        JoinRelay(joinCodeInput.text);
-    }
+    // public void JoinRelayButton()
+    // {
+    //     JoinRelay(joinCodeInput.text);
+    // }
 
     public async void JoinRelay(string joinCode)
     {
@@ -71,5 +93,7 @@ public class RelayUtility : MonoBehaviour
         {
             Debug.Log(e);
         }
+
+        joinStr = "";
     }
 }
