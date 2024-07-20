@@ -1,33 +1,75 @@
-// using System.Collections;
-// using System.Collections.Generic;
-// using UnityEngine;
+using UnityEngine;
+using Unity.Services.Core;
+using Unity.Services.Authentication;
+using Unity.Services.Relay;
+using Unity.Services.Relay.Models;
+using Unity.Netcode;
+using Unity.Netcode.Transports.UTP;
+using TMPro;
 
-// public class RelayUtility : MonoBehaviour
-// {
-//     public async Task<string> StartHostWithRelay(int maxConnections = 5)
-//     {
-//         await UnityServices.InitializeAsync();
-//         if (!AuthenticationService.Instance.IsSignedIn)
-//         {
-//             await AuthenticationService.Instance.SignInAnonymouslyAsync();
-//         }
-//         Allocation allocation = await RelayService.Instance.CreateAllocationAsync(maxConnections);
-//         NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(allocation, "dtls"));
-//         var joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
-//         return NetworkManager.Singleton.StartHost() ? joinCode : null;
-//     }
+public class RelayUtility : MonoBehaviour
+{
+    [SerializeField] TMP_InputField joinCodeInput;
+    private async void Start()
+    {
+        await UnityServices.InitializeAsync();
 
-//     public async Task<bool> StartClientWithRelay(string joinCode)
-//     {
-//         await UnityServices.InitializeAsync();
-//         if (!AuthenticationService.Instance.IsSignedIn)
-//         {
-//             await AuthenticationService.Instance.SignInAnonymouslyAsync();
-//         }
+        AuthenticationService.Instance.SignedIn += () =>
+        {
+            Debug.Log("Signed In " + AuthenticationService.Instance.PlayerId);
+        };
+        await AuthenticationService.Instance.SignInAnonymouslyAsync();
+    }
 
-//         var joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode: joinCode);
-//         NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(joinAllocation, "dtls"));
-//         return !string.IsNullOrEmpty(joinCode) && NetworkManager.Singleton.StartClient();
-//     }
+    public async void CreateRelayButton()
+    {
+        try
+        {
+            Allocation allocation = await RelayService.Instance.CreateAllocationAsync(3);
+            string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
 
-// }
+            NetworkManager.Singleton.GetComponent<UnityTransport>().SetHostRelayData(
+                allocation.RelayServer.IpV4,
+                (ushort)allocation.RelayServer.Port,
+                allocation.AllocationIdBytes,
+                allocation.Key,
+                allocation.ConnectionData
+                );
+
+            Debug.Log(joinCode);
+            NetworkManager.Singleton.StartHost();
+        }
+        catch (RelayServiceException e)
+        {
+            Debug.Log(e);
+        }
+    }
+
+    public void JoinRelayButton()
+    {
+        JoinRelay(joinCodeInput.text);
+    }
+
+    public async void JoinRelay(string joinCode)
+    {
+        try
+        {
+            Debug.Log("JoinRelay code = " + joinCode);
+            JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
+            NetworkManager.Singleton.GetComponent<UnityTransport>().SetClientRelayData(
+                joinAllocation.RelayServer.IpV4,
+                (ushort)joinAllocation.RelayServer.Port,
+                joinAllocation.AllocationIdBytes,
+                joinAllocation.Key,
+                joinAllocation.ConnectionData,
+                joinAllocation.HostConnectionData
+                );
+
+            NetworkManager.Singleton.StartClient();
+        }
+        catch (RelayServiceException e)
+        {
+            Debug.Log(e);
+        }
+    }
+}
