@@ -924,7 +924,6 @@ MonoBehaviour:
   m_ProtocolType: 0
   m_MaxPacketQueueSize: 128
   m_MaxPayloadSize: 6144
-  m_MaxSendQueueSize: 0
   m_HeartbeatTimeoutMS: 500
   m_ConnectTimeoutMS: 1000
   m_MaxConnectAttempts: 60
@@ -937,13 +936,6 @@ MonoBehaviour:
     PacketDelayMS: 0
     PacketJitterMS: 0
     PacketDropRate: 0
-  m_State: 0
-  m_ServerClientId: 0
-  NetworkManager: {fileID: 0}
-  m_ServerPrivateKey: 
-  m_ServerCertificate: 
-  m_ServerCommonName: 
-  m_ClientCaCertificate: 
 --- !u!114 &1059365465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -956,9 +948,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 593a2fe42fa9d37498c96f9a383b6521, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ServerShutdownState: 0
-  m_ShutdownTimeout: 0
-  m_ShuttingDown: 0
   NetworkConfig:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 1059365464}
@@ -969,7 +958,7 @@ MonoBehaviour:
     TickRate: 30
     ClientConnectionBufferTimeout: 10
     ConnectionApproval: 0
-    ConnectionData: []
+    ConnectionData: 
     EnableTimeResync: 0
     TimeResyncInterval: 30
     EnsureNetworkVariableLengthSafety: 0
