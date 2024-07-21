@@ -6,6 +6,10 @@ using Unity.Services.Relay.Models;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using TMPro;
+using System.Net.Http;
+using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+
 
 public class RelayUtility : MonoBehaviour
 {
@@ -13,6 +17,8 @@ public class RelayUtility : MonoBehaviour
 
     public async void StartGame()
     {
+        GetJoinCode();
+
         if (joinStr == "")
         {
             await UnityServices.InitializeAsync();
@@ -26,7 +32,12 @@ public class RelayUtility : MonoBehaviour
         else
         {
             JoinRelay(joinStr);
+            PostJoinCode(joinStr);
+            joinStr = "";
         }
+
+        Debug.Log("Button Clicked!");
+        SceneManager.LoadScene("GamePage");
     }
 
     // [SerializeField] TMP_InputField joinCodeInput;
@@ -93,7 +104,31 @@ public class RelayUtility : MonoBehaviour
         {
             Debug.Log(e);
         }
+    }
 
-        joinStr = "";
+    private async void GetJoinCode()
+    {
+        using (HttpClient client = new HttpClient())
+        {
+
+            HttpResponseMessage response = await client.GetAsync("https://nihonn.onrender.com/join-code");
+            string responseBody = await response.Content.ReadAsStringAsync();
+            this.joinStr = responseBody;
+        }
+    }
+
+    private async void PostJoinCode(string joinCode)
+    {
+        using (HttpClient client = new HttpClient())
+        {
+            var values = new Dictionary<string, string>
+            {
+                { "joinCode", joinCode }
+            };
+
+            var content = new FormUrlEncodedContent(values);
+            HttpResponseMessage response = await client.PostAsync("https://nihonn.onrender.com/join-code", content);
+            string responseBody = await response.Content.ReadAsStringAsync();
+        }
     }
 }
