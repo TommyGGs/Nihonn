@@ -10,7 +10,8 @@ using TMPro;
 public class RelayUtility : MonoBehaviour
 {
     private string joinStr = "";
-
+    private SettingUpGame settingUpGame;
+    
     public async void StartGame()
     {
         if (joinStr == "")
@@ -20,26 +21,32 @@ public class RelayUtility : MonoBehaviour
             {
                 Debug.Log("Signed In " + AuthenticationService.Instance.PlayerId);
             };
+            settingUpGame.PlayerID = 0;
+            Debug.Log("ur id is 0");
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
             CreateRelayHost();
         }
         else
         {
+            settingUpGame.PlayerID = 1;
+            Debug.Log("ur id is 1");
             JoinRelay(joinStr);
         }
     }
 
-    // [SerializeField] TMP_InputField joinCodeInput;
-    // private async void Start()
-    // {
-    //     await UnityServices.InitializeAsync();
+    [SerializeField] TMP_InputField joinCodeInput;
+    private async void Start()
+    {
+        settingUpGame = GameObject.Find("Main Camera").GetComponent<SettingUpGame>();
 
-    //     AuthenticationService.Instance.SignedIn += () =>
-    //     {
-    //         Debug.Log("Signed In " + AuthenticationService.Instance.PlayerId);
-    //     };
-    //     await AuthenticationService.Instance.SignInAnonymouslyAsync();
-    // }
+        await UnityServices.InitializeAsync();
+
+        AuthenticationService.Instance.SignedIn += () =>
+        {
+            Debug.Log("Signed In " + AuthenticationService.Instance.PlayerId);
+        };
+        await AuthenticationService.Instance.SignInAnonymouslyAsync();
+    }
 
     public async void CreateRelayHost()
     {
@@ -67,10 +74,10 @@ public class RelayUtility : MonoBehaviour
         }
     }
 
-    // public void JoinRelayButton()
-    // {
-    //     JoinRelay(joinCodeInput.text);
-    // }
+    public void JoinRelayButton()
+    {
+        JoinRelay(joinCodeInput.text);
+    }
 
     public async void JoinRelay(string joinCode)
     {

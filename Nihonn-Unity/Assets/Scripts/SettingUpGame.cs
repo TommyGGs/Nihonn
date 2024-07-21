@@ -8,11 +8,17 @@ public class SettingUpGame : MonoBehaviour
     private string[] allObjects = new string[] {"dora2", "natto", "nikuzusi", "omochi", "onigiri", 
     "sake", "takoyaki", "tenpura", "wasabi"};
     public bool isMyTurn; 
+
+    // player ID
+    public int PlayerID; 
+    public int CurrentPlayerID; 
     private string yesOrNo;
     public bool chopsticksOpen = false; 
-    private bool secondTurn = false;
+    // private bool secondTurn = false;
     public bool gameOver;
     public bool youWin;
+    public bool rightTurn; 
+
     void Start()
     {
         randomTurnFunc();
@@ -22,6 +28,8 @@ public class SettingUpGame : MonoBehaviour
 
     void Update()
     {
+        rightTurn = (CurrentPlayerID == 0);
+        isMyTurn = (CurrentPlayerID == PlayerID);
         if (gameOver)
         {
             Debug.Log(youWin? "You won!": "You lost");
@@ -39,11 +47,8 @@ public class SettingUpGame : MonoBehaviour
 
     private void ChangeTurn()
     {
-        if (secondTurn == false) 
-        {
-            secondTurn = true;
-        }
-        isMyTurn = !isMyTurn;
+        CurrentPlayerID = (CurrentPlayerID == 0)? 1: 0;
+        Debug.Log("changed turn, currentplayerid is" + CurrentPlayerID);
         Debug.Log("changing turn");
         SeeIfMyTurn();
         StartCoroutine(ChopTimer("food"));
@@ -86,6 +91,7 @@ public class SettingUpGame : MonoBehaviour
 
     private void SeeIfMyTurn()
     {
+        isMyTurn = (CurrentPlayerID == PlayerID);
         if (isMyTurn)
         {
             Debug.Log("its ur turn");
@@ -97,14 +103,17 @@ public class SettingUpGame : MonoBehaviour
 
     private void randomTurnFunc()
     {
-        int randomTurn = UnityEngine.Random.Range(0, 2);
-        if (randomTurn == 0)
-        {
-            isMyTurn = true;
-        } else
-        {
-            isMyTurn = false;
-        }
+        CurrentPlayerID = 0; 
+        rightTurn = true; 
+        // isMyTurn = (CurrentPlayerID == MyPlayerID);
+        // int randomTurn = UnityEngine.Random.Range(0, 2);
+        // if (randomTurn == PlayerID)
+        // {
+        //     isMyTurn = true;
+        // } else
+        // {
+        //     isMyTurn = false;
+        // }
         SeeIfMyTurn();
     }
 
@@ -120,8 +129,8 @@ public class SettingUpGame : MonoBehaviour
         // Apply positions
         Vector3 chopPos1 = chopstick1.transform.position;
         Vector3 chopPos2 = chopstick2.transform.position;
-        chopPos1.x = (isMyTurn || secondTurn) ? -chopPos1.x : chopPos1.x;
-        chopPos2.x = (isMyTurn || secondTurn) ? -chopPos2.x : chopPos2.x;
+        chopPos1.x = (rightTurn) ? -chopPos1.x : chopPos1.x;
+        chopPos2.x = (rightTurn) ? -chopPos2.x : chopPos2.x;
 
         chopstick1.transform.position = chopPos1;
         chopstick2.transform.position = chopPos2;
@@ -139,13 +148,13 @@ public class SettingUpGame : MonoBehaviour
 
     private Quaternion returnQuaternion1()
     {
-        return Quaternion.Euler(0f, isMyTurn ? 180f: 0f, 0f);
+        return Quaternion.Euler(0f, rightTurn ? 180f: 0f, 0f);
     }
 
     private Quaternion returnQuaternion2()
     {
         // Assuming the degrees for rotation are provided correctly
-        return Quaternion.Euler(0f, isMyTurn ? 180f: 0f, 0f);
+        return Quaternion.Euler(0f, rightTurn ? 180f: 0f, 0f);
     }
 
 

@@ -20,8 +20,12 @@ public class CoreGame : MonoBehaviour
 
     private void Update()
     {
-        HandleMovement();
-        HandleRotation();
+        // here if my turn
+        if (settingScript.CurrentPlayerID == settingScript.PlayerID)
+        {
+            HandleMovement();
+            HandleRotation();
+        } 
         CheckGameOver();
     }
 
@@ -59,9 +63,9 @@ public class CoreGame : MonoBehaviour
         } else {
             settingScript.chopsticksOpen = false;
         }
-        bool isMyTurn = settingScript.isMyTurn;
-        chopstick1.transform.rotation = Quaternion.Euler(0f, isMyTurn ? 180f: 0f, -6.5f);
-        chopstick2.transform.rotation = Quaternion.Euler(0f, isMyTurn ? 180f: 0f, 9.67f);
+
+        chopstick1.transform.rotation = Quaternion.Euler(0f, settingScript.rightTurn ? 180f: 0f, -6.5f);
+        chopstick2.transform.rotation = Quaternion.Euler(0f, settingScript.rightTurn ? 180f: 0f, 9.67f);
 
     }
 
@@ -109,6 +113,7 @@ public class CoreGame : MonoBehaviour
             // because switches turn when chopsticks opens 
             // so when its dropped and its your fault, it is is the other person's "isMyTurn"
             // so when objects fall out during isMyTurn == true, its your win
+            // here isMyturn is fine but have to set it up in settingupgame
             settingScript.gameOver = true;
             settingScript.youWin = settingScript.isMyTurn ? true: false;
         }
