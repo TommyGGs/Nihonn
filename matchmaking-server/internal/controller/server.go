@@ -1,30 +1,13 @@
 package controller
 
-import (
-	"log"
-	"net/http"
-
-	"github.com/gorilla/websocket"
-)
+import "github.com/labstack/echo/v4"
 
 func Server() {
-	ms := NewMatchmakingSystem()
-	upgrader := websocket.Upgrader{
-		CheckOrigin: func(r *http.Request) bool { return true },
-	}
+	handler := NewHandler()
 
-	http.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Hello, World!"))
-	})
+	e := echo.New()
+	e.GET("/join-code", handler.GetJoinCode)
+	e.POST("/join-code", handler.PostJoinCode)
 
-	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
-		conn, err := upgrader.Upgrade(w, r, nil)
-		if err != nil {
-			log.Println(err)
-			return
-		}
-		ms.HandleConn(conn)
-	})
-
-	http.ListenAndServe(":8080", nil)
+	e.Logger.Fatal(e.Start(":8080"))
 }
